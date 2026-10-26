@@ -68,7 +68,7 @@ mkdir -p "$HOME/.config/dev-setup" && printf '%s\n' "$HOST" > "$HOME/.config/dev
 SETUP="$DIR/scripts/$HOST-setup.sh"
 if [ -x "$SETUP" ]; then
   say "Running $SETUP"
-  exec "$SETUP" </dev/tty
+  if (exec </dev/tty) 2>/dev/null; then exec "$SETUP" </dev/tty; else exec "$SETUP"; fi
 else
   echo "No setup script for '$HOST' yet ($SETUP). Checkout is ready."
 fi
